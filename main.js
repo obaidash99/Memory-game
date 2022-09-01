@@ -1,4 +1,12 @@
-document.querySelector('.controls-btns span').onclick = function () {
+var controlsBtn = document.querySelector('.controls-btns');
+var startSpan = document.querySelector('.controls-btns span');
+var seconds = 00;
+var tens = 00;
+var outputSeconds = document.querySelector('#seconds');
+var outputTens = document.querySelector('#tens');
+var interval;
+
+startSpan.onclick = function () {
 	let yourName = prompt("What's Your Name?");
 
 	if (yourName == null || yourName == '') {
@@ -7,7 +15,10 @@ document.querySelector('.controls-btns span').onclick = function () {
 		document.querySelector('.name span').innerHTML = yourName;
 	}
 
-	document.querySelector('.controls-btns').remove();
+	controlsBtn.remove();
+
+	clearInterval(interval);
+	interval = setInterval(startTime, 10); // 10 milliseconds to count the parts of each second
 };
 
 let duration = 1000;
@@ -117,3 +128,22 @@ function shuffle(array) {
 	[2] Current Element = Random Element
 	[3] Randm Element = Get Element from Stash
 */
+
+function startTime() {
+	tens++;
+	if (tens <= 9) {
+		outputTens.innerHTML = '0' + tens;
+	}
+	if (tens > 9) {
+		outputTens.innerHTML = tens;
+	}
+	if (tens > 99) {
+		seconds++;
+		outputSeconds.innerHTML = '0' + seconds;
+		tens = 0;
+		outputTens.innerHTML = '0' + tens;
+	}
+	if (seconds > 9) {
+		outputSeconds.innerHTML = seconds;
+	}
+}

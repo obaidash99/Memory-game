@@ -146,26 +146,26 @@ function startTime() {
 	if (seconds > 9) {
 		outputSeconds.innerHTML = seconds;
 	}
-	if (seconds >= 15) {
-		clearInterval(interval);
-		outputSeconds.innerHTML = '00';
-		outputTens.innerHTML = '00';
-		restartGame();
-	}
+	// if (seconds >= 15) {
+	// 	clearInterval(interval);
+	// 	outputSeconds.innerHTML = '00';
+	// 	outputTens.innerHTML = '00';
+	// 	restartGame();
+	// }
 }
 
-function restartGame() {
-	const restartSpan = document.createElement('span');
-	restartSpan.classList.add('restart');
-	restartSpan.textContent = 'Play Again';
-	controlsBtn.appendChild(restartSpan);
-	document.body.appendChild(controlsBtn);
-	startSpan.remove();
+// function restartGame() {
+// 	const restartSpan = document.createElement('span');
+// 	restartSpan.classList.add('restart');
+// 	restartSpan.textContent = 'Play Again';
+// 	controlsBtn.appendChild(restartSpan);
+// 	document.body.appendChild(controlsBtn);
+// 	startSpan.remove();
 
-	restartSpan.addEventListener('click', () => {
-		controlsBtn.remove();
+// 	restartSpan.addEventListener('click', () => {
+// 		controlsBtn.remove();
 
-		clearInterval(interval);
-		interval = setInterval(startTime, 10);
-	});
-}
+// 		clearInterval(interval);
+// 		interval = setInterval(startTime, 10);
+// 	});
+// }

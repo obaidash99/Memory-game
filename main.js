@@ -1,5 +1,5 @@
 var controlsBtn = document.querySelector('.controls-btns');
-var startSpan = document.querySelector('.controls-btns span');
+var startSpan = document.querySelector('.controls-btns .start');
 var seconds = 00;
 var tens = 00;
 var outputSeconds = document.querySelector('#seconds');
@@ -146,4 +146,26 @@ function startTime() {
 	if (seconds > 9) {
 		outputSeconds.innerHTML = seconds;
 	}
+	if (seconds >= 15) {
+		clearInterval(interval);
+		outputSeconds.innerHTML = '00';
+		outputTens.innerHTML = '00';
+		restartGame();
+	}
+}
+
+function restartGame() {
+	const restartSpan = document.createElement('span');
+	restartSpan.classList.add('restart');
+	restartSpan.textContent = 'Play Again';
+	controlsBtn.appendChild(restartSpan);
+	document.body.appendChild(controlsBtn);
+	startSpan.remove();
+
+	restartSpan.addEventListener('click', () => {
+		controlsBtn.remove();
+
+		clearInterval(interval);
+		interval = setInterval(startTime, 10);
+	});
 }

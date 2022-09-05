@@ -5,6 +5,7 @@ var tens = 00;
 var outputSeconds = document.querySelector('#seconds');
 var outputTens = document.querySelector('#tens');
 var interval;
+var matchedBlocks = [];
 
 startSpan.onclick = function () {
 	let yourName = prompt("What's Your Name?");
@@ -26,6 +27,7 @@ let duration = 1000;
 let blocksContainer = document.querySelector('.memory-game-blocks');
 
 let blocks = Array.from(blocksContainer.children);
+// console.log(blocks.length);
 
 // Create Range of Keys
 // let orderRange = [...Array(blocks.length).keys()];
@@ -33,8 +35,8 @@ let orderRange = Array.from(Array(blocks.length).keys());
 
 shuffle(orderRange);
 
-// add order property to Game Blocks
 blocks.forEach((block, index) => {
+	// add order property to Game Blocks
 	block.style.order = orderRange[index];
 
 	// add click event
@@ -84,6 +86,21 @@ function checkMatchedBlocks(firstBlock, secondBlock) {
 		secondBlock.classList.add('has-match');
 
 		document.getElementById('success').play();
+		// Restart Game When All Blocks Matched
+		matchedBlocks.push(firstBlock);
+		matchedBlocks.push(secondBlock);
+
+		if (matchedBlocks.length === blocks.length) {
+			blocks.forEach((block) => {
+				block.classList.remove('is-flipped');
+				block.classList.remove('has-match');
+			});
+			document.body.appendChild(controlsBtn);
+			clearInterval(interval);
+			outputSeconds.innerHTML = '00';
+			outputTens.innerHTML = '00';
+			startSpan.innerHTML = 'Restart Game';
+		}
 	} else {
 		triesElement.innerHTML = parseInt(triesElement.innerHTML) + 1;
 
@@ -153,19 +170,3 @@ function startTime() {
 	// 	restartGame();
 	// }
 }
-
-// function restartGame() {
-// 	const restartSpan = document.createElement('span');
-// 	restartSpan.classList.add('restart');
-// 	restartSpan.textContent = 'Play Again';
-// 	controlsBtn.appendChild(restartSpan);
-// 	document.body.appendChild(controlsBtn);
-// 	startSpan.remove();
-
-// 	restartSpan.addEventListener('click', () => {
-// 		controlsBtn.remove();
-
-// 		clearInterval(interval);
-// 		interval = setInterval(startTime, 10);
-// 	});
-// }
